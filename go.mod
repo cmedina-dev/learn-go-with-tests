@@ -1,3 +1,3 @@
-module github.com/cmedina-dev/testproject/v2
+module LearnGo
 
-go 1.22.2
+go 1.22
