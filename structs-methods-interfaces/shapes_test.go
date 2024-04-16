@@ -1,6 +1,9 @@
 package structs_methods_interfaces
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestPerimeter(t *testing.T) {
 	rectangle := Rectangle{10, 10}
@@ -9,6 +12,45 @@ func TestPerimeter(t *testing.T) {
 	if got != want {
 		t.Errorf("got %g want %g", got, want)
 	}
+}
+
+func BenchmarkRectangle_Area(b *testing.B) {
+	rectangle := Rectangle{10, 10}
+	for i := 0; i < b.N; i++ {
+		rectangle.Area()
+	}
+}
+
+func ExampleRectangle_Area() {
+	rectangle := Rectangle{Width: 10, Height: 10}
+	fmt.Println(rectangle.Area())
+	// Output: 100
+}
+
+func BenchmarkCircle_Area(b *testing.B) {
+	circle := Circle{10}
+	for i := 0; i < b.N; i++ {
+		circle.Area()
+	}
+}
+
+func ExampleCircle_Area() {
+	circle := Circle{Radius: 10}
+	fmt.Println(circle.Area())
+	// Output: 314.1592653589793
+}
+
+func BenchmarkTriangle_Area(b *testing.B) {
+	triangle := Triangle{Base: 10, Height: 10}
+	for i := 0; i < b.N; i++ {
+		triangle.Area()
+	}
+}
+
+func ExampleTriangle_Area() {
+	triangle := Triangle{Base: 10, Height: 10}
+	fmt.Println(triangle.Area())
+	// Output: 50
 }
 
 func TestArea(t *testing.T) {
