@@ -42,17 +42,26 @@ func TestSearch(t *testing.T) {
 		dictionary := Dictionary{word: definition}
 		err := dictionary.Update(word, newDefinition)
 		if err != nil {
+
 			t.Fatal("error not expected: ", err)
 		}
 		assertDefinition(t, dictionary, word, newDefinition)
 	})
-	t.Run("does not update words that don't exist", func(t *testing.T) {
+	t.Run("does not update words that do not exist", func(t *testing.T) {
 		word := "test2"
 		definition := "this is just a test"
 		newDefinition := "this is the updated definition"
 		dictionary := Dictionary{"test": definition}
 		err := dictionary.Update(word, newDefinition)
 		assertError(t, err, ErrWordDoesNotExist)
+	})
+	t.Run("deletes an existing word", func(t *testing.T) {
+		word := "test"
+		definition := "this is just a test"
+		dictionary := Dictionary{word: definition}
+		dictionary.Delete(word)
+		_, err := dictionary.Search(word)
+		assertError(t, err, ErrWordNotFound)
 	})
 }
 
